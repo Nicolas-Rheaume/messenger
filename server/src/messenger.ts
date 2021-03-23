@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
+import bodyParser from 'body-parser';
+import helmet from 'helmet';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import { createServer } from "http";
 //import { createServer } from "https";
@@ -21,6 +23,9 @@ const credentials = {
 
 const app: express.Application = express();
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.json())
+app.use(helmet())
 app.use(express.static(path.join(__dirname, 'public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
