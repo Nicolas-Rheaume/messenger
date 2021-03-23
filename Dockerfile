@@ -16,10 +16,11 @@ WORKDIR /app/messenger/client
 COPY ./client/package*.json ./
 
 # Install all the dependencies
+RUN npm install -g @angular/cli
 RUN npm install
 
 # Copy over all the angular files
-COPY . .
+COPY ./client/ .
 
 # Building the angular application
 RUN npm run build:prod
