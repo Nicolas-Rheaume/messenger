@@ -36,6 +36,7 @@ WORKDIR /app/messenger/server
 COPY ./server/package*.json ./
 
 # Install all the dependencies
+RUN npm install -g typescript
 RUN npm install
 
 # Copy over all the angular files
@@ -44,8 +45,11 @@ COPY ./server/ .
 # Building the angular application
 RUN npm run build
 
+# Creating the port environment variable
+ENV PORT=8080
+
 # Start the Application
-CMD ["node", "run", "serve"]
+CMD ["npm", "run", "serve"]
 
 
 # Create app directory
