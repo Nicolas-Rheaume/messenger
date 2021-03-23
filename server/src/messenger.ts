@@ -29,15 +29,35 @@ app.use(helmet())
 app.use(express.static(path.join(__dirname, 'public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
-const options = {
-    cors: {
-        origin: "*",
+
+// For production
+const production = process.env.PRODUCTION || false;
+let options = {};
+if(production) {
+    options = {
+        cors: {
+            origin: "https://nickrheaume.ca/messenger",
+            methods: ["GET", "POST"],
+            allowedHeaders: ["nr-portfolio"],
+            credentials: true
+        }
     }
 }
+// For development
+else {
+    options = {
+        cors: {
+            origin: "http://localhost:4200",
+            methods: ["GET", "POST"],
+            allowedHeaders: ["nr-portfolio"],
+            credentials: true
+        }
+    }
+}
+
 const io = new Server(server, options );
 
 const port = process.env.PORT || 8080;
-
 let sockets: Socket[] = [];
 Room.createHomeRoom();
 

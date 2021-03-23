@@ -5,9 +5,12 @@
 export const environment = {
   production: false,
   socketioConfig: {
-    url: 'http://localhost:8081', 
+    url: 'http://localhost:8080', 
     options: {
-      withCredentials: false,
+      withCredentials: true,
+      extraHeaders: {
+        "nr-portfolio": "abcd"
+      }
     }
   }
 };

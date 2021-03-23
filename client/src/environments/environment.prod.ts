@@ -3,7 +3,10 @@ export const environment = {
   socketioConfig: {
     url: 'https://nickrheaume.ca/messenger', 
     options: {
-      withCredentials: false,
+      withCredentials: true,
+      extraHeaders: {
+        "nr-portfolio": "abcd"
+      }
     }
   }
 };
