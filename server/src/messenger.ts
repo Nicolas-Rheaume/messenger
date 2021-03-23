@@ -21,7 +21,7 @@ const credentials = {
 
 const app: express.Application = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname, '../../client/dist/client')));
+app.use(express.static(path.join(__dirname, 'public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
 const options = {
