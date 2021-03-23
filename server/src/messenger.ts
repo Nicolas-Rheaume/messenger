@@ -38,6 +38,7 @@ if(production) {
         path: '/messenger/socket.io',
         cors: {
             origin: "https://nickrheaume.ca/messenger/",
+            path: '/messenger/socket.io',
             methods: ["GET", "POST"],
             allowedHeaders: ["nr-portfolio"],
             credentials: true

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   socketioConfig: {
-    url: 'https://nickrheaume.ca/messenger/socket.io', 
+    url: 'https://nickrheaume.ca/messenger', 
     options: {
       transports: ['websocket'], 
       allowUpgrades : true,
