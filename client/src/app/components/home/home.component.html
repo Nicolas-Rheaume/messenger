@@ -1,0 +1,38 @@
+
+<div class="h-screen flex">
+        <div class="m-auto bg-blue-300 p-10 rounded-lg w-11/12 md:w-3/4 lg:w-1/2">
+
+        <!--
+        <input class="border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Enter a username: " [(ngModel)]="this.chat.currentUser.name">
+        <button class="bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" (click)="onSubmitUsername()">Submit</button><br><br>
+
+        <button (click)="onCreateRoom()">Create Room</button><br><br>
+
+        <input type="text" placeholder="Enter a room ID: " [(ngModel)]="this.roomID">
+
+        <button (click)="onJoinRoom()">Join Room</button>
+        -->
+
+
+
+
+
+            <div class="mb-2">
+             <label class="block mb-2 text-blue-500" for="username">Username</label>
+             <input class="w-full p-2 text-blue-700 border-b-2 border-blue-500 outline-none focus:bg-gray-300 rounded-lg " type="text" name="username" placeholder="ex: John Doe" [(ngModel)]="this.chat.currentUser.name" maxlength="10" pattern="[A-Za-z0-9]{10}" (blur)="onSubmitUsername()">
+             <span class="text-xs text-red-700" id="invalidUsername" *ngIf="invalidUsername">Invalid username: </span>
+           </div>
+           <div class="mb-6">
+             <label class="block mb-2 text-blue-500" for="password">Room ID</label>
+             <input class="w-full p-2 text-blue-700 border-b-2 border-blue-500 outline-none focus:bg-gray-300 rounded-lg " type="text" name="roomid" placeholder="ex: QWER" [(ngModel)]="this.roomID" maxlength="4" style="text-transform:uppercase" pattern="[A-Za-z]{4}">
+             <span class="text-xs text-red-700" id="invalidRoomId" *ngIf="invalidRoom">Invalid room id: </span>
+           </div>
+           <div class="mb-6">          
+            <button class="w-full bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg " (click)="onJoinRoom()">Join Room</button>
+           </div>
+           <div>          
+            <button class="w-full bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg " (click)="onCreateRoom()">Create Room</button>
+          </div> 
+        </div>
+
+</div>
