@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
   socketioConfig: {
-    url: '/messenger', 
+    url: 'https://nickrheaume.ca', 
+    path: '/messenger',
     options: {
       withCredentials: true,
       extraHeaders: {
