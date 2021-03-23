@@ -5,27 +5,67 @@
 # Get the base Node.js image
 FROM node:current
 
-# RUN mkdir -p /usr/src/collab/server
+##########################################
+# Angular Client
+##########################################
 
-# Create app directory
-WORKDIR /app/messenger/
+# Setting up the client application
+WORKDIR /app/messenger/client
 
 # Copy over the package.js file
-COPY package*.json ./
+COPY ./client/package*.json ./
 
 # Install all the dependencies
 RUN npm install
+
+# Copy over all the angular files
+COPY . .
+
+# Building the angular application
+RUN npm run build:prod
+
+##########################################
+# TypeScript Server
+##########################################
+
+# Setting up the client application
+WORKDIR /app/messenger/server
+
+# Copy over the package.js file
+COPY ./server/package*.json ./
+
+# Install all the dependencies
+RUN npm install
+
+# Copy over all the angular files
+COPY ./server/ .
+
+# Building the angular application
+RUN npm run build
+
+# Start the Application
+CMD ["node", "run", "serve"]
+
+
+# Create app directory
+#WORKDIR /app/messenger/
+
+# Copy over the package.js file
+#COPY package*.json ./
+
+# Install all the dependencies
+#RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
 # Copy over all the app files
-COPY . .
+#COPY . .
 
 # Create an environment variable
-ENV PORT=8080
+#ENV PORT=8080
 
 # Start the Application
-CMD ["node", "run", "serve:prod"]
+#CMD ["node", "run", "serve:prod"]
 
 # RUN npm install -g nodemon
 # Bundle app source
