@@ -35,6 +35,7 @@ const production = process.env.PRODUCTION || false;
 let options = {};
 if(production) {
     options = {
+        path: '/messenger/socket.io',
         cors: {
             origin: "https://nickrheaume.ca/messenger/",
             methods: ["GET", "POST"],
