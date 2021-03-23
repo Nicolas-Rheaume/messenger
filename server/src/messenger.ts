@@ -36,7 +36,7 @@ let options = {};
 if(production) {
     options = {
         cors: {
-            origin: "https://nickrheaume.ca/messenger",
+            origin: "https://nickrheaume.ca/messenger/",
             methods: ["GET", "POST"],
             allowedHeaders: ["nr-portfolio"],
             credentials: true
@@ -47,7 +47,7 @@ if(production) {
 else {
     options = {
         cors: {
-            origin: "http://localhost:4200",
+            origin: "http://localhost:4200/",
             methods: ["GET", "POST"],
             allowedHeaders: ["nr-portfolio"],
             credentials: true
