@@ -9,7 +9,7 @@ export const environment = {
     options: {
       withCredentials: true,
       extraHeaders: {
-        "nr-portfolio": "abcd"
+        "nr-portfolio": "nr-portfolio"
       }
     }
   }

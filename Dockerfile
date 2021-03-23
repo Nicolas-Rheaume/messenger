@@ -47,6 +47,7 @@ RUN npm run build
 
 # Creating the port environment variable
 ENV PORT=8080
+ENV PRODUCTION=true
 
 # Start the Application
 CMD ["npm", "run", "serve"]
