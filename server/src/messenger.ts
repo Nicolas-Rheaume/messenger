@@ -31,7 +31,7 @@ const options = {
 }
 const io = new Server(server, options );
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 
 let sockets: Socket[] = [];
 Room.createHomeRoom();
@@ -152,6 +152,11 @@ server.listen(port, () => {
     console.log(`Server running on port ${port}`)
 })
 */
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'))
+})
+
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`)
