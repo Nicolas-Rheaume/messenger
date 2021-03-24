@@ -3,6 +3,17 @@ export const environment = {
   socketioConfig: {
     url: 'https://nickrheaume.ca/messenger', 
     options: {
+      allowUpgrades : true,
+      withCredentials: true,
+    }
+  }
+};
+/*
+export const environment = {
+  production: true,
+  socketioConfig: {
+    url: 'https://nickrheaume.ca/messenger', 
+    options: {
       transports: ['websocket'], 
       allowUpgrades : true,
       path: '/messenger/socket.io',
@@ -13,3 +24,4 @@ export const environment = {
     }
   }
 };
+*/

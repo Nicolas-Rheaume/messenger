@@ -8,9 +8,6 @@ export const environment = {
     url: 'http://localhost:8080', 
     options: {
       withCredentials: true,
-      extraHeaders: {
-        "nr-portfolio": "nr-portfolio"
-      }
     }
   }
 };

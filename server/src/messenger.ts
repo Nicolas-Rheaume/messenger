@@ -49,9 +49,8 @@ if(production) {
 else {
     options = {
         cors: {
-            origin: "http://localhost:4200/",
+            origin: "http://localhost:4200",
             methods: ["GET", "POST"],
-            allowedHeaders: ["nr-portfolio"],
             credentials: true
         }
     }
