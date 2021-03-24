@@ -26,7 +26,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
 app.use(helmet())
-app.use(express.static(path.join(__dirname, 'public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
 
@@ -34,19 +33,18 @@ const server = createServer(app);
 const production = process.env.PRODUCTION || false;
 let options = {};
 if(production) {
+    app.use('/messenger', express.static(path.join(__dirname, 'public')));
     options = {
-        path: '/messenger/socket.io',
         cors: {
             origin: "https://nickrheaume.ca/messenger/",
-            path: '/messenger/socket.io',
             methods: ["GET", "POST"],
-            allowedHeaders: ["nr-portfolio"],
             credentials: true
         }
     }
 }
 // For development
 else {
+    app.use(express.static(path.join(__dirname, 'public')));
     options = {
         cors: {
             origin: "http://localhost:4200",
