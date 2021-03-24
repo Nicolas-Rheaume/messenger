@@ -26,6 +26,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
 app.use(helmet())
+app.use(express.static(path.join(__dirname, 'public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
 
@@ -33,7 +34,7 @@ const server = createServer(app);
 const production = process.env.PRODUCTION || false;
 let options = {};
 if(production) {
-    app.use('/messenger', express.static(path.join(__dirname, 'public')));
+    //app.use('/messenger', express.static(path.join(__dirname, 'public')));
     options = {
         cors: {
             origin: "https://nickrheaume.ca/messenger/",
@@ -44,7 +45,7 @@ if(production) {
 }
 // For development
 else {
-    app.use(express.static(path.join(__dirname, 'public')));
+    //app.use(express.static(path.join(__dirname, 'public')));
     options = {
         cors: {
             origin: "http://localhost:4200",
@@ -178,9 +179,9 @@ server.listen(port, () => {
 */
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/public/index.html'))
+    //res.sendFile(path.join(__dirname + '/public/index.html'))
+    res.sendFile('index.html', { root: path.join(__dirname, './public') });
 })
-
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`)
