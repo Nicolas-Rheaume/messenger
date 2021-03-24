@@ -25,7 +25,9 @@ const app: express.Application = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
-app.use(helmet())
+app.use(helmet({
+    contentSecurityPolicy: false,
+  }))
 app.use(express.static(path.join(__dirname, 'public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
