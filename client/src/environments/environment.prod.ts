@@ -3,6 +3,7 @@ export const environment = {
   socketioConfig: {
     url: 'https://nickrheaume.ca/messenger', 
     options: {
+      path: '/messenger/socket.io',
       allowUpgrades : true,
       withCredentials: true,
     }
