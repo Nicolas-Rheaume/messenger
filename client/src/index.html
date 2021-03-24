@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Security-Policy" 
         content="default-src 'none';
         frame-src 'self';
-        script-src 'self';
+        script-src 'self' data: https://nickrheaume.ca/messenger/ 'unsafe-eval'; 
         style-src 'self' 'unsafe-inline';
         font-src 'self';
         img-src 'self' data:;
@@ -20,3 +20,16 @@
   </div>
 </body>
 </html>
+
+<!--
+<meta http-equiv="Content-Security-Policy" 
+content="
+default-src 'self' gap:; 
+script-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; 
+object-src *; 
+style-src 'self' data: 'unsafe-inline'; 
+img-src 'self' data:; 
+media-src 'self' data:; 
+font-src 'self' data:; 
+connect-src *">
+-->
