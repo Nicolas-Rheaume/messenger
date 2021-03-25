@@ -25,10 +25,8 @@ const app: express.Application = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
-app.use(helmet({
-    contentSecurityPolicy: false,
-  }))
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(helmet({ contentSecurityPolicy: false }))
+app.use(express.static(path.join(__dirname, '/public')));
 //const server = createServer(credentials, app);
 const server = createServer(app);
 
@@ -182,8 +180,10 @@ server.listen(port, () => {
 
 app.get('/', (req, res) => {
     //res.sendFile(path.join(__dirname + '/public/index.html'))
-    res.sendFile('index.html', { root: path.join(__dirname, './public') });
+    //res.sendFile('index.html', { root: path.join(__dirname, './public') });
+    res.sendFile(path.join(__dirname + '/index.html'))
 })
+
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`)
