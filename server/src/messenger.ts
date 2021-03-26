@@ -34,22 +34,13 @@ const server = createServer(app);
 const production = process.env.PRODUCTION || false;
 let options = {};
 if(production) {
-    //app.use('/messenger', express.static(path.join(__dirname, 'public')));
-    options = {
-        cors: {
-            origin: "https://nickrheaume.ca",
-            methods: ["GET", "POST"],
-            credentials: true
-        }
-    }
-    /*
     options = {
         cors: {
             origin: "https://nickrheaume.ca/messenger/",
             methods: ["GET", "POST"],
             credentials: true
         }
-    }*/
+    }
 }
 // For development
 else {
@@ -68,6 +59,16 @@ const io = new Server(server, options );
 const port = process.env.PORT || 8080;
 let sockets: Socket[] = [];
 Room.createHomeRoom();
+
+io.of('/messenger').on('connection', async (socket: Socket) => {
+    console.log('/messenger connection')
+
+});
+
+io.of('messenger').on('connection', async (socket: Socket) => {
+    console.log('messenger connection')
+
+});
 
 io.on('connection', async (socket: Socket) => {
 
