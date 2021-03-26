@@ -35,13 +35,22 @@ const production = process.env.PRODUCTION || false;
 let options = {};
 if(production) {
     //app.use('/messenger', express.static(path.join(__dirname, 'public')));
+    console.log("user production options")
+    options = {
+        cors: {
+            origin: "https://nickrheaume.ca",
+            methods: ["GET", "POST"],
+            credentials: true
+        }
+    }
+    /*
     options = {
         cors: {
             origin: "https://nickrheaume.ca/messenger/",
             methods: ["GET", "POST"],
             credentials: true
         }
-    }
+    }*/
 }
 // For development
 else {
