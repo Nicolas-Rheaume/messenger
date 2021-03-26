@@ -44,15 +44,35 @@ export class SocketService {
 		});
 	}
 
-    public static async connectRoom(socket: Socket, room: Room, users: Array<User>): Promise<void> {
+    public static async connectRoom(socket: Socket, room: Room, users: Array<User>, messages: Array<Message>): Promise<void> {
 		return new Promise(async (resolve, reject) => {
 			try {
                 socket.emit('connect-room', {
                     id: room.id,
                     users: users.map(user => {
-                        return user.name
+                        return {
+							name: user.name
+						}
+                    }),
+					messages: messages.map(message => {
+						return {
+							timestamp: message.timestamp,
+							text: message.text,
+							user: message.user.name
+						}
                     })
                 })
+				resolve();
+			} catch (err) {
+				reject(err);
+			}
+		});
+	}
+
+	public static async exitRoom(socket: Socket): Promise<void> {
+		return new Promise(async (resolve, reject) => {
+			try {
+                socket.emit('exited-room', {})
 				resolve();
 			} catch (err) {
 				reject(err);
@@ -75,6 +95,7 @@ export class SocketService {
 		});
 	}
 
+	/*
 	public static async sendAllData(socket: Socket, room: Room, users: Array<User>, messages: Array<Message>): Promise<void> {
 		return new Promise(async (resolve, reject) => {
 			try {
@@ -97,12 +118,13 @@ export class SocketService {
 			}
 		});
 	}
+	*/
 
 	public static async sendNewUser(socket: Socket, newUser: User): Promise<void> {
 		return new Promise(async (resolve, reject) => {
 			try {
                 socket.emit('new-user', {
-                    user: newUser.name,
+                    name: newUser.name,
                 })
 				resolve();
 			} catch (err) {
@@ -125,6 +147,7 @@ export class SocketService {
 			}
 		});
 	}
+
 
 
 

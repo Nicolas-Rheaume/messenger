@@ -33,7 +33,7 @@ const config: SocketIoConfig = environment.socketioConfig;
     ChatService,
     SocketService,
     RoomGuard,
-    { provide: APP_BASE_HREF, useValue: '/messenger' }
+    { provide: APP_BASE_HREF, useValue: environment.base_url }
   ],
   bootstrap: [AppComponent]
 })

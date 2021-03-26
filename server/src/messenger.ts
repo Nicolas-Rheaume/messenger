@@ -70,7 +70,24 @@ io.on('connection', async (socket: Socket) => {
     console.log(`Connected user with ID: ${socket.id}\t Total: ${sockets.length} users`)
 
     // USER DISCONNECTS
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
+        const user: User = await User.findBySocket(socket).catch(err => { throw err; });
+        const home = await Room.findByID('').catch(err => { throw err; });
+        if(user.room != home) {
+            const usersInRoom: Array<User> = await User.findAllOtherUsersInRoom(user).catch(err => { throw err; });
+            if(usersInRoom.length == 0) {
+                await Room.delete(user.room).catch(err => { throw err; });
+                await User.delete(socket).catch(err => { throw err; });
+            } else {
+                usersInRoom.forEach( async (userInRoom) => {
+                    const otherUsers: Array<User> = await User.findAllOtherUsersInRoom(userInRoom).catch(err => { throw err; });
+                    await SocketService.sendAllUser(userInRoom.socket, otherUsers).catch(err => { throw err; });
+                })
+                await User.delete(socket).catch(err => { throw err; });
+            }
+        } else {
+            await User.delete(socket).catch(err => { throw err; });
+        }
         sockets = sockets.filter(s => {
             return s.id !== socket.id;
         })
@@ -98,13 +115,13 @@ io.on('connection', async (socket: Socket) => {
             socket.join(newRoom.id);
             const user: User = await User.findBySocket(socket).catch(err => { throw err; });
             await user.setRoom(newRoom).catch(err => { throw err; });
-            await SocketService.connectRoom(socket, newRoom, []).catch(err => { throw err; });
+            await SocketService.connectRoom(socket, newRoom, [], []).catch(err => { throw err; });
         } catch (err) {
             await SocketService.sendMessage(socket, `Error creating to the room, ${err}`).catch(err => { throw err; });
 		}
     })
 
-    // CREATE ROOM
+    // EXIT ROOM
     socket.on('exit-room', async () => {
         try {
             const user: User = await User.findBySocket(socket).catch(err => { throw err; });
@@ -113,18 +130,34 @@ io.on('connection', async (socket: Socket) => {
                 throw err;
             });
             user.setRoom(home).catch(err => { throw err; });
-            await SocketService.connectRoom(socket, home, []).catch(err => { throw err; });
-            
+            await SocketService.exitRoom(socket).catch(err => { throw err; });
+
+            console.log(user.name);
+            console.log(user.room);
+            console.log(room);
+
+
             const usersInRoom: Array<User> = await User.findAllUsersInRoom(room).catch(err => { throw err; });
+
+            console.log(usersInRoom.map(user => {
+                return {
+                    name: user.name,
+                    room: user.room
+                }
+            }))
+
             usersInRoom.forEach( async (userInRoom) => {
+                console.log(userInRoom.name)
                 const otherUsers: Array<User> = await User.findAllOtherUsersInRoom(userInRoom).catch(err => { throw err; });
                 await SocketService.sendAllUser(userInRoom.socket, otherUsers).catch(err => { throw err; });
             })
 
             if(usersInRoom.length === 0) {
+                console.log(room)
                 Room.delete(room).catch(err => { throw err; });
             }
         } catch (err) {
+            console.log(err);
             await SocketService.sendMessage(socket, `Error exiting to the room, ${err}`).catch(err => { throw err; });
 		}
     })
@@ -147,7 +180,7 @@ io.on('connection', async (socket: Socket) => {
             user.setRoom(room).catch(err => { throw err; });
             const otherUsersInRoom: Array<User> = await User.findAllOtherUsersInRoom(user).catch(err => { throw err; });
             const messagesInRoom: Array<Message> = await Message.findAllMessagesInRoom(room).catch(err => { throw err; });
-            await SocketService.sendAllData(user.socket, room, otherUsersInRoom, messagesInRoom).catch(err => { throw err; });
+            await SocketService.connectRoom(user.socket, room, otherUsersInRoom, messagesInRoom).catch(err => { throw err; });
             otherUsersInRoom.forEach( async (userInRoom) => {
                 await SocketService.sendNewUser(userInRoom.socket, user).catch(err => { throw err; });
             })

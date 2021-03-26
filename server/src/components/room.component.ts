@@ -36,6 +36,7 @@ export class Room {
     public static async delete(current: Room): Promise<void> {
 		return new Promise(async (resolve, reject) => {
 			try {
+                /*
                 const index = this.rooms.findIndex((room, i) => {
                     if(room.id === current.id) {
                         return true;
@@ -47,6 +48,11 @@ export class Room {
                 } else {
                     reject(`the room id doesn't exists.`)
                 }
+                */
+
+                this.rooms = this.rooms.filter(room => {
+                    return room.id !== current.id;
+                })
 			} catch (err) {
 				reject(err);
 			}
