@@ -60,17 +60,7 @@ const port = process.env.PORT || 8080;
 let sockets: Socket[] = [];
 Room.createHomeRoom();
 
-io.of('/messenger').on('connection', async (socket: Socket) => {
-    console.log('/messenger connection')
-
-});
-
 io.of('messenger').on('connection', async (socket: Socket) => {
-    console.log('messenger connection')
-
-});
-
-io.on('connection', async (socket: Socket) => {
 
     // USER CONNECTS
     sockets.push(socket)
