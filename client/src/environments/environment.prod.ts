@@ -4,7 +4,7 @@ export const environment = {
   production: true,
   base_url: '/messenger',
   socketioConfig: {
-    url: 'https://nickrheaume.ca', 
+    url: 'https://nickrheaume.ca/messenger', 
     options: {
       allowUpgrades : true,
       withCredentials: true,
